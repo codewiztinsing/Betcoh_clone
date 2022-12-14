@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { StackAuthScreens, StackHomeScreens } from '../StackNavigationScreens';
 import ChatScreen from '../../../screens/ChatScreen';
 import Payment from '../../../screens/Payment';
+import DrawerNavigator from '../DrawerNavigation';
 
 
 const Tab = createBottomTabNavigator();
@@ -14,7 +15,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Landing" component={StackHomeScreens}
+ <Tab.Screen name="Landing" component={StackHomeScreens}
          options={
           {
             tabBarLabel:'Home screen',
@@ -26,17 +27,20 @@ const BottomTabNavigator = () => {
         }
       />
 
-     <Tab.Screen name="Chat" component={ChatScreen}
+<Tab.Screen name="Auth" component={StackAuthScreens}
          options={
           {
-            tabBarLabel:'Chat screen',
+            tabBarLabel:'Auth screen',
             headerShown:false,
             tabBarIcon:({color,size}) => (
-              <MaterialCommunityIcons name='chat' color={color} size={size}/>
+              <MaterialCommunityIcons name='login' color={color} size={size}/>
             )
           }
         }
       />
+     
+
+   
 
 
      <Tab.Screen name="Payment" component={Payment}
@@ -46,6 +50,18 @@ const BottomTabNavigator = () => {
             headerShown:false,
             tabBarIcon:({color,size}) => (
               <MaterialCommunityIcons name='contactless-payment' color={color} size={size}/>
+            )
+          }
+        }
+      />
+
+      <Tab.Screen name="Chat" component={ChatScreen}
+         options={
+          {
+            tabBarLabel:'Chat screen',
+            headerShown:false,
+            tabBarIcon:({color,size}) => (
+              <MaterialCommunityIcons name='chat' color={color} size={size}/>
             )
           }
         }

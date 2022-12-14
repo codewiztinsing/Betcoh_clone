@@ -34,8 +34,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Button from '../../componets/Buttons';
 import {useNavigation} from '@react-navigation/native';
 import KeyboardAvoidingViewWrapper from '../components/KeyboardAvoidingView';
-import { loginValidation} from '../../utilities/validation';
-const axios = require('axios').default;
+import {loginValidation} from '../../utilities/validation';
+
+//firebase authentication
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../../../config/firebase';
 
 const LoginScreen = () => {
   const [hidePassword, setHidePassword] = useState(true);
@@ -56,29 +59,34 @@ const LoginScreen = () => {
     setMessageType(messageType);
   };
 
-  const handleLogin = (values, setSubmitting) => {
-    const myip = '213.55.85.43';
-    const localip = '10.144.100.33';
-    const url = `http://${localip}:8000/api/auth/login`;
-    axios
-      .post(url, {
-        email: values.email,
-        password: values.password,
-      })
-      .then((res: any) =>
-        res.data.status != 'FAILED'
-          ? navigation.navigate('Home')
-          : handleMessage(res.data.status),
-      );
-    setSubmitting(false).catch(function (error: any) {
-      console.log(error.message);
-    });
+
+  const handleError = (error) => {
+
+    var message = ""
+    switch (error.code){
+          case "INVALID_USER":
+              message = "custom message"
+           
+      }
+    }
+
+  const handleLogin = async (props,{setSubmitting}) => {
+   try {
+    const logged = await signInWithEmailAndPassword(auth, props.email, props.password)
+    navigation.navigate("Home")
+    setSubmitting(false)
+     
+   } catch (error) {
+     setMessage(error.code.split("/")[1])
+     setSubmitting(false)
+   }
+    
+
   };
 
   return (
     <KeyboardAvoidingViewWrapper>
       <Container>
-        <StatusBar style="dark" />
         <InnerContainer>
           <BetochTitle>Betoch</BetochTitle>
           <SubTitle>Account Login</SubTitle>
@@ -126,17 +134,17 @@ const LoginScreen = () => {
                 />
                 <MsgBox type={messageType}>{message}</MsgBox>
 
-                {!isSubmitting && (
-                  <StyledButton onPress={handleSubmit}>
-                    <ButtonText>Login</ButtonText>
-                  </StyledButton>
-                )}
+               { !isSubmitting && <StyledButton onPress={handleSubmit}>
+                  <ButtonText>Login</ButtonText>
+                </StyledButton>}
 
                 {isSubmitting && (
                   <StyledButton onPress={handleSubmit} disabled={true}>
                     <ActivityIndicator size={32} color={'white'} />
                   </StyledButton>
                 )}
+
+             
                 <Line />
 
                 <StyledButton social={true} onPress={handleSubmit}>

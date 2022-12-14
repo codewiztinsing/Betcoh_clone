@@ -7116,6 +7116,13 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+"react-native-onboarding-swiper@^1.2.0":
+  "integrity" "sha512-UcQ9FTSPG/t12B7dddr62xtA7qHb+MEc/kQnkkUbeWas0+0fQPjTjiFcVZm5LI3CP5X0HVp7U1Rzfrpf3O9lJA=="
+  "resolved" "https://registry.npmjs.org/react-native-onboarding-swiper/-/react-native-onboarding-swiper-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "tinycolor2" "^1.4.1"
+
 "react-native-paper@^5.0.1":
   "integrity" "sha512-JY4XQktCCoDWLbZsNfUNsGSJ9Zf7HvpXfwif4aQT1igW+WTYWhWCQsAXsnisd5bMiw9uNwSQCbLkckvuI2fWBg=="
   "resolved" "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.0.1.tgz"
@@ -8193,6 +8200,11 @@
   "integrity" "sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA=="
   "resolved" "https://registry.npmjs.org/tiny-warning/-/tiny-warning-1.0.3.tgz"
   "version" "1.0.3"
+
+"tinycolor2@^1.4.1":
+  "integrity" "sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA=="
+  "resolved" "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.2.tgz"
+  "version" "1.4.2"
 
 "tmpl@1.0.5":
   "integrity" "sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw=="

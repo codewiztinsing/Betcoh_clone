@@ -76,7 +76,7 @@ export default function DrawerContent(props) {
                     <DrawerItem
                         icon={({ color, size }) => (
                             <Icon
-                                name="bookmark-outline"
+                                name="application-settings"
                                 color={color}
                                 size={size}
                             />

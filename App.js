@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
+import React, {createContext,useState,useContext,useEffect} from 'react';
 
 import {
   SafeAreaView,
@@ -16,49 +8,68 @@ import {
   Text,
   useColorScheme,
   View,
+  ActivityIndicator
 } from 'react-native';
 import DrawerNavigator from './src/auth/screens/DrawerNavigation';
-import { NavigationContainer } from '@react-navigation/native';
-import { StackAuthScreens } from './src/auth/screens/StackNavigationScreens';
+import {NavigationContainer} from '@react-navigation/native';
+import {StackAuthScreens} from './src/auth/screens/StackNavigationScreens';
 import SignupScreen from './src/auth/screens/SignupScreen';
 import ForgotPassword from './src/auth/screens/ForgotPassword';
 import BottomTabNavigator from './src/auth/screens/BottomNavigation';
 
+//firebase dependencies
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './config/firebase';
 
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
+const AuthenticatedUserContext = createContext({});
 
-const App = () => {
-
-
+const AuthenticatedUserProvider = ({children}) => {
+  const [user, setUser] = useState(null);
   return (
- 
-
-      <NavigationContainer>
-         <DrawerNavigator />
-      </NavigationContainer>
-
+    <AuthenticatedUserContext.Provider value={{user, setUser}}>
+      {children}
+    </AuthenticatedUserContext.Provider>
   );
 };
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+
+function RootNavigator() {
+  const {user, setUser} = useContext(AuthenticatedUserContext);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // onAuthStateChanged returns an unsubscriber
+    const unsubscribeAuth = onAuthStateChanged(
+      auth,
+      async authenticatedUser => {
+        authenticatedUser ? setUser(authenticatedUser) : setUser(null);
+        setIsLoading(false);
+      },
+    );
+    // unsubscribe auth listener on unmount
+    return unsubscribeAuth;
+  }, [user]);
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <NavigationContainer>
+       <BottomTabNavigator />
+    </NavigationContainer>
+  );
+}
+
+const App = () => {
+  return (
+    <AuthenticatedUserProvider>
+      <RootNavigator />
+    </AuthenticatedUserProvider>
+  );
+};
 
 export default App;

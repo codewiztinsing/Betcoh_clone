@@ -34,7 +34,15 @@ import KeyboardAvoidingViewWrapper from '../components/KeyboardAvoidingView';
 import axios from 'axios';
 
 //validation schema
-import { signupValidation } from '../../utilities/validation';
+import { signupValidation, } from '../../utilities/validation';
+
+// signup firebase functionality
+import { signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+   
+} from "firebase/auth";
+import { auth, database, } from "../../../config/firebase"
+import { AddUser } from '../../Firebase/Users';
 
 
 
@@ -63,7 +71,22 @@ const SignupScreen = () => {
 
 //handleRegister(values,setSubmitting) // handle register
 const handleRegister = async (values,formikActions) => {
-console.log(values)
+  if (values.email !== '' && values.password !== '') {
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+          .then((res) =>  {
+            setMessage("Register success")
+           const uid = auth.currentUser.uid
+            AddUser(uid,values.username,values.email)
+          navigation.navigate("Home")
+        } )
+          .catch((err) => 
+            {
+              setMessage("register error")
+              
+              
+            }
+          );
+      }
 }
 
 
