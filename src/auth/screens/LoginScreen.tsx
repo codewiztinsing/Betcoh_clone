@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   BetochLogo,
   BetochTitle,
@@ -35,10 +35,10 @@ import Button from '../../componets/Buttons';
 import {useNavigation} from '@react-navigation/native';
 import KeyboardAvoidingViewWrapper from '../components/KeyboardAvoidingView';
 import {loginValidation} from '../../utilities/validation';
+import { Context } from '../../GlobalContext/globalContext';
+import axios from 'axios';
 
-//firebase authentication
-import {signInWithEmailAndPassword} from 'firebase/auth';
-import {auth} from '../../../config/firebase';
+
 
 const LoginScreen = () => {
   const [hidePassword, setHidePassword] = useState(true);
@@ -59,30 +59,37 @@ const LoginScreen = () => {
     setMessageType(messageType);
   };
 
+  //contexts
 
-  const handleError = (error) => {
+const globalContext = useContext(Context)
+const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
 
-    var message = ""
-    switch (error.code){
-          case "INVALID_USER":
-              message = "custom message"
-           
-      }
-    }
 
-  const handleLogin = async (props,{setSubmitting}) => {
-   try {
-    const logged = await signInWithEmailAndPassword(auth, props.email, props.password)
-    navigation.navigate("Home")
+  const handleLogin =  (props,{setSubmitting}) => {
     setSubmitting(false)
-     
-   } catch (error) {
-     setMessage(error.code.split("/")[1])
-     setSubmitting(false)
-   }
-    
 
-  };
+    let body = {
+      username:props.username,
+      email:props.email,
+      password:props.password,
+      password2:props.confrimPassword
+    }
+    
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    axios.post(`${domain}api/token/refresh/`,body)
+    .then(function (response) {
+    setIsLoggedIn(true)
+    setToken(response.data['access'])
+    navigation.navigate("Home")
+      
+    })
+    .catch(error => {
+      console.warn("login failed")
+    })
+  
+  }
+
 
   return (
     <KeyboardAvoidingViewWrapper>
@@ -96,6 +103,7 @@ const LoginScreen = () => {
             validationSchema={loginValidation}
             onSubmit={(values, setSubmitting) => {
               handleLogin(values, setSubmitting);
+             
             }}>
             {({
               errors,
@@ -136,13 +144,13 @@ const LoginScreen = () => {
 
                { !isSubmitting && <StyledButton onPress={handleSubmit}>
                   <ButtonText>Login</ButtonText>
-                </StyledButton>}
+                </StyledButton>} 
 
-                {isSubmitting && (
+                {/* {isSubmitting && (
                   <StyledButton onPress={handleSubmit} disabled={true}>
                     <ActivityIndicator size={32} color={'white'} />
                   </StyledButton>
-                )}
+                )} */}
 
              
                 <Line />
@@ -189,7 +197,7 @@ const Input = ({
       {error ? <StyledInputLabel error={true}>{error}</StyledInputLabel> : null}
       {isPassword && (
         <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-          <Entypo name={hidePassword ? 'eye-with-line' : 'eye'} size={30} />
+          <Entypo name={hidePassword ? 'eye-with-line' : 'eye'} size={20} />
         </RightIcon>
       )}
     </ScrollView>

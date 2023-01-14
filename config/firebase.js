@@ -1,23 +1,34 @@
-import { initializeApp } from 'firebase/app';
+import {apps, initializeApp } from 'firebase/app';
+
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 import { getDatabase } from 'firebase/database';
 
-// import Constants from 'expo-constants';
-// Firebase config
 
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD6cOtunvx-E26ecIsx5Zs3Wgu1euYGk7s",
-  authDomain: "betochchatapp.firebaseapp.com",
-  projectId: "betochchatapp",
-  storageBucket: "betochchatapp.appspot.com",
-  messagingSenderId: "923563576884",
-  appId: "1:923563576884:web:24f07cb6c6e48c57ac0461"
+  apiKey: "AIzaSyDxytbfjQ_scf5DwUtqIHr2fdn0NTs6flo",
+  authDomain: "chatbetochapp.firebaseapp.com",
+  projectId: "chatbetochapp",
+  storageBucket: "chatbetochapp.appspot.com",
+  messagingSenderId: "517330165011",
+  appId: "1:517330165011:web:efbe5dc2f3b27d07430ee6"
 };
-// initialize firebase
-initializeApp(firebaseConfig);
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
+
 
 export const auth = getAuth();
 export const database = getDatabase();
 //export const database = getFirestore();
+
+
+

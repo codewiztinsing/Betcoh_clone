@@ -1,7 +1,7 @@
-import { ActivityIndicator, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, StatusBar, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   BetochLogo,
   BetochTitle,
@@ -35,14 +35,8 @@ import axios from 'axios';
 
 //validation schema
 import { signupValidation, } from '../../utilities/validation';
+import { Context } from '../../GlobalContext/globalContext';
 
-// signup firebase functionality
-import { signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-   
-} from "firebase/auth";
-import { auth, database, } from "../../../config/firebase"
-import { AddUser } from '../../Firebase/Users';
 
 
 
@@ -50,7 +44,7 @@ import { AddUser } from '../../Firebase/Users';
 
 const SignupScreen = () => {
   const [hidePassword, setHidePassword] = useState(true);
-
+  const navigation = useNavigation()
   // date picker related setters and getters
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(2000, 0, 1))
@@ -67,26 +61,42 @@ const SignupScreen = () => {
      dateOfBirth: '',
       password: '',
        confrimPassword: '' 
+
+
       }
 
+// global context hooks
+const globalContext = useContext(Context)
+const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
+
 //handleRegister(values,setSubmitting) // handle register
-const handleRegister = async (values,formikActions) => {
-  if (values.email !== '' && values.password !== '') {
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-          .then((res) =>  {
-            setMessage("Register success")
-           const uid = auth.currentUser.uid
-            AddUser(uid,values.username,values.email)
-          navigation.navigate("Home")
-        } )
-          .catch((err) => 
-            {
-              setMessage("register error")
-              
-              
-            }
-          );
-      }
+const handleRegister = async (props,{setSubmitting}) => {
+
+  let body = {
+    username:props.username,
+    email:props.email,
+    password:props.password,
+    password2:props.confrimPassword
+  }
+  
+  axios.defaults.xsrfCookieName = 'csrftoken'
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+  axios.post(`${domain}api/v1/accounts/signup/`,body)
+  .then(function (response) {
+    
+     if(response.data['message']) {
+      setMessage("Registertion successfully")
+       navigation.navigate("_Login")
+     }
+     setMessage(response.data['error'])
+    
+  })
+  .catch(function (error) {
+    // setMessage(error)
+    console.log(error)
+  });
+
+  
 }
 
 
@@ -95,7 +105,7 @@ const handleRegister = async (values,formikActions) => {
     setMessage(messageType)
   }
 
-  const navigation = useNavigation()
+ 
 
   // actual date of birth
   const [dob, setDob] = useState()
@@ -233,7 +243,7 @@ const handleRegister = async (values,formikActions) => {
 
                 <ExtraView>
                   <ExtraText>Already have an account  ?
-                    <TextLink onPress = {() => navigation.navigate("Login")}>
+                    <TextLink onPress = {() => navigation.push("_Login")}>
                       <TextLinkContent>Login</TextLinkContent>
                     </TextLink>
                   </ExtraText>
@@ -284,7 +294,7 @@ const Input = ({
       {
         isPassword && (
           <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-            <Entypo name={hidePassword ? 'eye-with-line' : 'eye'} size={30} />
+            <Entypo name={hidePassword ? 'eye-with-line' : 'eye'} size={20} />
           </RightIcon>
         )
       }

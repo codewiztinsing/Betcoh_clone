@@ -14,14 +14,17 @@ const ImageCarousel = ({ images }: { images: [string] }) => {
             setactiveIndex(viewableItems[0].index || 0);
         };
       }, []);
-    
+   
+      
     return (
         <View>
+           
             <FlatList 
                 data={images}
-                renderItem={({item})=>(     
+                renderItem={({item})=>(  
+                  
                 <Image 
-                style={[styles.image,{width:windowWidth -20}]} source={item}/>
+                style={[styles.image,{width:windowWidth -20}]} source={{uri:item}}/>
                 
                 )}
                 horizontal
@@ -63,6 +66,7 @@ const styles = StyleSheet.create({
 
     image: {
         height: 250,
+    
         resizeMode:"contain",
         margin:10,
     },

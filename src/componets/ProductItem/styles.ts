@@ -4,10 +4,11 @@ const styles = StyleSheet.create(
     {
         root : {
             flexDirection:"row",
+     
             width:"100%",
             borderColor:"#285032",
             borderRadius:10,
-            marginBottom:5,
+            marginBottom:10,
            
     
         },
@@ -36,6 +37,7 @@ const styles = StyleSheet.create(
         image : {
             flex:2,
             height:150,
+            width:150,
             resizeMode:"cover",
     
         },

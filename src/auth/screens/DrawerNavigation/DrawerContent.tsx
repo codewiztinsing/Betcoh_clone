@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer"
 import {
     Avatar,
@@ -8,47 +8,32 @@ import {
     Drawer
 } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import  _Icon from 'react-native-vector-icons/MaterialIcons'
+
+
+
 import styles from './styles'
+import { Context } from '../../../GlobalContext/globalContext'
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function DrawerContent(props) {
+
+
+    const navigation = useNavigation()
+    const globalContext = useContext(Context)
+    const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
+
+    
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
-                    <View style={styles.userInfoSection}>
-                        <View style={{ marginTop: 15, flexDirection: 'row' }}>
-                            <Avatar.Image
-                                source={{
-                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
-                                }}
-                                size={50}
-                            />
-                        </View>
-
-                        <View style={{ marginLeft: 15, flexDirection: 'row' }}>
-                            <Title style={styles.title}>
-                                Yonas Dargues
-                            </Title>
-
-                            <Caption style={styles.caption}>@darguesyonas</Caption>
-                        </View>
-                    </View>
+                  
                 </View>
 
                 <Drawer.Section style={styles.drawerSection}>
-                    <DrawerItem
-                        icon={({ color, size }) => (
-                            <Icon
-                                name="home-outline"
-                                color={color}
-                                size={size}
-                            />
-                        )}
-                        label="Home"
-                        onPress={() => { props.navigation.navigate("Home") }}
 
-                    />
 
 
                     <DrawerItem
@@ -64,13 +49,13 @@ export default function DrawerContent(props) {
                     />
                     <DrawerItem
                         icon={({ color, size }) => (
-                            <Icon
-                                name="bookmark-outline"
+                            <_Icon
+                                name="language"
                                 color={color}
                                 size={size}
                             />
                         )}
-                        label="Bookmarks"
+                        label="language"
                         onPress={() => { props.navigation.navigate('BookmarkScreen') }}
                     />
                     <DrawerItem
@@ -107,7 +92,12 @@ export default function DrawerContent(props) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => {  }}
+                    onPress={() => { 
+                        setIsLoggedIn(false)
+                        setToken("")
+                        navigation.navigate("_Login")
+
+                     }}
                 />
             </Drawer.Section>
         </View>

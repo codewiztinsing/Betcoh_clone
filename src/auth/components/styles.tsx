@@ -30,9 +30,11 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const Container = styled.View`
+  // position:absolute;
   flex: 1;
   padding: 10px;
   background-color: ${primary};
+  height:${windowHeight};
   
 `;
 export const InnerContainer = styled.View`
@@ -57,7 +59,7 @@ export const BetochTitle = styled.Text`
 
 export const SubTitle = styled.Text`
 font-size:18px;
-margin-top:20px;
+margin-top:5px;
 letter-spacing:1px;
 font-weight:bold
 color:${tertiary}
@@ -73,9 +75,9 @@ export const StyledTextInput = styled.TextInput`
   padding-left: 55px;
   border-radius: 5px;
   font-size: 16px;
-  height: 50px;
+  height: 40px;
   margin-top: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: ${tertiary};
 `;
 
@@ -88,15 +90,15 @@ export const StyledInputLabel = styled.Text`
 export const LeftIcon = styled.View`
   z-index: 1;
   position: absolute;
-  left: 15px;
-  top: 38px;
+  left: 10px;
+  top: 25px;
 `;
 
 export const RightIcon = styled.TouchableOpacity`
   z-index: 1;
   position: absolute;
-  right: 15px;
-  top: 38px;
+  right: 10px;
+  top: 25px;
 `;
 
 export const StyledButton = styled.TouchableOpacity`
@@ -105,7 +107,7 @@ export const StyledButton = styled.TouchableOpacity`
   justify-contetn: center;
   align-items: center;
   border-radius: 5px;
-  margin-vertical: 5px;
+  // margin-vertical: 2px;
   height: 50px;
   ${props =>
     props.social == true &&
@@ -117,7 +119,7 @@ flex-direction:row;
 
 export const ButtonText = styled.Text`
   color: ${primary};
-  font-size: 16px;
+  font-size: 15px;
   ${props =>
     props.social == true &&
     `
@@ -140,8 +142,9 @@ export const Line = styled.View`
 
 export const ExtraView = styled.View`
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  align-content:center;
   padding: 10px;
 `;
 
@@ -160,4 +163,5 @@ export const TextLink = styled.TouchableOpacity`
 export const TextLinkContent = styled.Text`
   color: ${Colors.brand};
   font-size: 15px;
+
 `;

@@ -10,6 +10,7 @@ interface ProductItemProps {
         id: string;
         title: string;
         image: string;
+        get_image:string;
         avgRating: number;
         ratings: number;
         price: number;
@@ -20,6 +21,7 @@ interface ProductItemProps {
 
 function ProductItem({item}:ProductItemProps) {
 
+
   const navigation = useNavigation();
  
     
@@ -27,7 +29,10 @@ function ProductItem({item}:ProductItemProps) {
     <TouchableOpacity onPress={() =>  navigation.navigate("Product",{'item':item})
     }>
           <View style = {styles.root}>
-                <Image style = {styles.image} source={item.image} />
+                {/* <Image style = {styles.image} source={{uri:item.image}} /> */}
+                <Image style = {styles.image} source={
+                     require("/home/tinsae/Desktop/Betoch_clone/Betoch/assets/house-2.jpeg")
+                    } />
 
             <View style = {styles.rightContainer}>
                 <Text style = {styles.title}numberOfLines = {3}>{item.title}</Text>
@@ -36,13 +41,14 @@ function ProductItem({item}:ProductItemProps) {
                     {
                     [0,0,0,0,0].map((it,i) =>
                      <FontAwesome
-                     key={`${Number.parseInt(item.id)  - i}`} 
-                     style = {styles.star} name={i < Math.floor(item.avgRating) ? "star":"star-o"} size={18} color="#C4A000"/>
+                    //  key={`${Number.parseInt(item.id)  - i}`} 
+                    key = {`${Math.random()} ${it} ${i}`}
+                     style = {styles.star} name = {
+                         i < Math.floor(item.avgRating) ? "star":"star-o"} size={18} color="#C4A000"
+                         />
 
                     )}
 
-                    
-                    <Text>{item.ratings}</Text>
                     
 
                 </View>
