@@ -6,9 +6,28 @@ const styles = StyleSheet.create({
 
     },
 
+    info:{
+      flexDirection :"row",
+      justifyContent:"space-between"
+
+    },
+    right:{
+
+    },
+    left: {
+
+    },
+
     title:{
       fontSize:22,
       fontWeight:"bold",
+      fontFamily:"sans serif",
+      color:"black"
+        
+    },
+
+    bottomText:{
+      fontSize:16,
       fontFamily:"sans serif",
       color:"black"
         

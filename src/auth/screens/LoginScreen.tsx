@@ -69,10 +69,9 @@ const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
     setSubmitting(false)
 
     let body = {
-      username:props.username,
       email:props.email,
       password:props.password,
-      password2:props.confrimPassword
+    
     }
     
     axios.defaults.xsrfCookieName = 'csrftoken'
@@ -85,7 +84,7 @@ const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
       
     })
     .catch(error => {
-      console.warn("login failed")
+      console.warn(error)
     })
   
   }

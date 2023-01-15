@@ -24,15 +24,17 @@ function ProductItem({item}:ProductItemProps) {
 
   const navigation = useNavigation();
  
-    
+  {console.log(item.get_image)}
   return (
     <TouchableOpacity onPress={() =>  navigation.navigate("Product",{'item':item})
     }>
           <View style = {styles.root}>
-                {/* <Image style = {styles.image} source={{uri:item.image}} /> */}
-                <Image style = {styles.image} source={
+                <Image style = {styles.image} source={{uri:item.get_image}} />
+                
+
+                {/* <Image style = {styles.image} source={
                      require("/home/tinsae/Desktop/Betoch_clone/Betoch/assets/house-2.jpeg")
-                    } />
+                    } /> */}
 
             <View style = {styles.rightContainer}>
                 <Text style = {styles.title}numberOfLines = {3}>{item.title}</Text>

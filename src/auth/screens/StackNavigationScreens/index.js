@@ -41,6 +41,10 @@ function StackHomeScreens() {
             <HomeStack.Screen name="Search" component={SearchScreen}/>
             <HomeStack.Screen name="Product" component={ProductScreen}/>
             <HomeStack.Screen name="Order" component={OrderScreen}/>
+            <HomeStack.Screen name="_Login" component={LoginScreen}/>
+            <HomeStack.Screen name="SignUp" component={SignupScreen}/>
+
+
          </HomeStack.Navigator>
       );
     }

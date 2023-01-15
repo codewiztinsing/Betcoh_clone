@@ -28,6 +28,8 @@ const Provider = ({children}) => {
   };
 
   
+
+  
   return <Context.Provider value={globalContext}>{children}</Context.Provider>;
 };
 

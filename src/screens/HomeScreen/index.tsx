@@ -101,7 +101,7 @@ function HomeScreen({navigation}) {
         keyExtractor={(item) => `${item.slug} ${item.id} ${Math.random()} `}
         renderItem={({item}) => <ProductItem item={item} />}
       />
-      <View style={styles.bottomNavigation}></View>
+ 
     </View>
   );
 }

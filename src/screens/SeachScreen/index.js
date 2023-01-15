@@ -4,6 +4,7 @@ import CustomPicker from '../../componets/Picker'
 import axios from 'axios'
 import { Context } from '../../GlobalContext/globalContext'
 import ProductItem from '../../componets/ProductItem'
+import HorizontalFlatList from '../../componets/HorizontalFlatList'
 
 const SearchScreen = () => {
 
@@ -16,7 +17,7 @@ const SearchScreen = () => {
   const [home_type, setHomeType] = useState("Condo");
   const [city,setCity] = useState("Adama")
   const [refreshing,setOnRefresh] = useState(false)
-  const [products,setProducts] = useState()
+  const [products,setProducts] = useState(globalProducts)
 
 
   useEffect(() => {
@@ -27,7 +28,13 @@ const SearchScreen = () => {
         city:city
       })
       .then(response => {
-        console.log(response.data)
+       
+       response.data && setProducts(response.data)
+        
+        
+          // setProducts(globalProducts)
+        
+        
       
       })
 
@@ -49,20 +56,80 @@ const SearchScreen = () => {
 
 
           <CustomPicker selectedValue = {city}
-          setSelectedValue = {setCity} items = {["AdissAbebe","Hawasa","Adama","Bishofitu"]}/>
+          setSelectedValue = {setCity} items = {[
+                 "Hawasa", "Shager","Adama",
+                    "Dire Dawa","Dream Land","Cloud Land"]}/>
 
         </View>
 
         <View>
 
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={products}
-          refreshing={refreshing}
-          onRefresh={() => setOnRefresh(true)}
-          keyExtractor={(item) => `${item.slug} ${item.id} ${Math.random()} `}
-          renderItem={({item}) => <ProductItem item={item} />}
-        />
+      <HorizontalFlatList products={products} SECTIONS={[
+        {
+              title: 'BY SELL TYPE',
+              horizontal: true,
+              data: [
+                {
+                  key: '1',
+                  text: 'Item text 1',
+                  uri: 'https://picsum.photos/id/1/200',
+                },
+                {
+                  key: '2',
+                  text: 'Item text 2',
+                  uri: 'https://picsum.photos/id/10/200',
+                },
+          
+                {
+                  key: '3',
+                  text: 'Item text 3',
+                  uri: 'https://picsum.photos/id/1002/200',
+                },
+                {
+                  key: '4',
+                  text: 'Item text 4',
+                  uri: 'https://picsum.photos/id/1006/200',
+                },
+                {
+                  key: '5',
+                  text: 'Item text 5',
+                  uri: 'https://picsum.photos/id/1008/200',
+                },
+              ],
+            },
+            {
+              title: 'BY LOCATION',
+              horizontal: true,
+              data: [
+                {
+                  key: '1',
+                  text: 'Item text 1',
+                  uri: 'https://picsum.photos/id/1011/200',
+                },
+                {
+                  key: '2',
+                  text: 'Item text 2',
+                  uri: 'https://picsum.photos/id/1012/200',
+                },
+          
+                {
+                  key: '3',
+                  text: 'Item text 3',
+                  uri: 'https://picsum.photos/id/1013/200',
+                },
+                {
+                  key: '4',
+                  text: 'Item text 4',
+                  uri: 'https://picsum.photos/id/1015/200',
+                },
+                {
+                  key: '5',
+                  text: 'Item text 5',
+                  uri: 'https://picsum.photos/id/1016/200',
+                },
+              ],
+            }
+      ]}/>
         </View>
     
     </View>
