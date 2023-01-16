@@ -1,5 +1,5 @@
-import { SafeAreaView, StyleSheet, View } from 'react-native'
-import React from 'react'
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Avatar,
   Title,
@@ -10,8 +10,45 @@ import {
 } from 'react-native-paper'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
+import { Context } from '../../GlobalContext/globalContext';
 
 const Profile = () => {
+
+  const [realtor,setRealtor] = useState({
+    name:'',
+    photo:'',
+    email:'',
+    location:'',
+    phone:'',
+  })
+
+  //contexts
+  const globalContext = useContext(Context);
+  const {domain,userObj, setIsLoggedIn,setGlobalProducts} = globalContext;
+  const [load ,setLoad] = useState(true)
+  console.log("realtor obj ",userObj.email)
+  useEffect(() => {
+    axios
+      .get(`${domain}api/v1/realtors/${userObj.email}/`)
+      .then(response => {
+       console.log("response data",response.data)
+       setRealtor(response.data)
+       setLoad(false)
+      
+      })
+
+      .catch(error => console.log(error));
+  }, [userObj.email,load]);
+
+  const handleProfileImage =  () => {
+   
+   
+  
+    
+  }
 
 
   return ( 
@@ -19,18 +56,20 @@ const Profile = () => {
         
     <View style={styles.userInfoSection}>
     <View style={{flexDirection: 'row', marginTop: 15}}>
-      <Avatar.Image 
-        source={{
-          uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
-        }}
-        size={80}
-      />
+     <TouchableOpacity onPress={() => handleProfileImage()}>
+        <Avatar.Image 
+            source={{
+              uri: realtor.photo
+            }}
+            size={80}
+          />
+     </TouchableOpacity>
       <View style={{marginLeft: 20}}>
         <Title style={[styles.title, {
           marginTop:15,
           marginBottom: 5,
-        }]}>John Doe</Title>
-        <Caption style={styles.caption}>@j_doe</Caption>
+        }]}>{realtor.name}</Title>
+        <Caption style={styles.caption}>@r_{realtor.name}</Caption>
       </View>
     </View>
   </View>
@@ -38,15 +77,15 @@ const Profile = () => {
   <View style={styles.userInfoSection}>
     <View style={styles.row}>
       <Icon name="map-marker-radius" color="#777777" size={20}/>
-      <Text style={{color:"#777777", marginLeft: 20}}>Kolkata, India</Text>
+      <Text style={{color:"#777777", marginLeft: 20}}>{realtor.location}</Text>
     </View>
     <View style={styles.row}>
       <Icon name="phone" color="#777777" size={20}/>
-      <Text style={{color:"#777777", marginLeft: 20}}>+91-900000009</Text>
+      <Text style={{color:"#777777", marginLeft: 20}}>{realtor.phone}</Text>
     </View>
     <View style={styles.row}>
       <Icon name="email" color="#777777" size={20}/>
-      <Text style={{color:"#777777", marginLeft: 20}}>john_doe@email.com</Text>
+      <Text style={{color:"#777777", marginLeft: 20}}>{realtor.email}</Text>
     </View>
   </View>
 

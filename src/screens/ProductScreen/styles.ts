@@ -5,6 +5,10 @@ const styles = StyleSheet.create({
       margin:10
 
     },
+    topBar:{
+      flexDirection:"row",
+      justifyContent:"space-around"
+    },
 
     info:{
       flexDirection :"row",

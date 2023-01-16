@@ -30,11 +30,7 @@ function ProductItem({item}:ProductItemProps) {
     }>
           <View style = {styles.root}>
                 <Image style = {styles.image} source={{uri:item.get_image}} />
-                
 
-                {/* <Image style = {styles.image} source={
-                     require("/home/tinsae/Desktop/Betoch_clone/Betoch/assets/house-2.jpeg")
-                    } /> */}
 
             <View style = {styles.rightContainer}>
                 <Text style = {styles.title}numberOfLines = {3}>{item.title}</Text>

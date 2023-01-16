@@ -62,11 +62,11 @@ const LoginScreen = () => {
   //contexts
 
 const globalContext = useContext(Context)
-const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
+const {domain,setIsLoggedIn,setToken,setuserObj} = globalContext
 
 
   const handleLogin =  (props,{setSubmitting}) => {
-    setSubmitting(false)
+      setSubmitting(false)
 
     let body = {
       email:props.email,
@@ -76,15 +76,28 @@ const {domain,setIsLoggedIn,setToken,setUserObj} = globalContext
     
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-    axios.post(`${domain}api/token/refresh/`,body)
+    axios.post(`${domain}api/token/`,
+    {
+  
+      email:props.email,
+      password:props.password
+    }
+    
+    )
     .then(function (response) {
-    setIsLoggedIn(true)
-    setToken(response.data['access'])
-    navigation.navigate("Home")
+       setIsLoggedIn(true)
+       setMessage("")
+       navigation.navigate("Home")
+       setuserObj({
+        email:props.email
+      })
+       
       
     })
     .catch(error => {
-      console.warn(error)
+      if(error.code == 'ERR_BAD_REQUEST') {
+        setMessage("No user with given credentials");
+      }
     })
   
   }

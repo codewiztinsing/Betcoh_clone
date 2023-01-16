@@ -9,11 +9,10 @@ const Provider = ({children}) => {
   // const [domain, setDomain] = useState("http://openport.io:20639");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [token, setToken] = useState();
-  const [userObj, setuserObj] = useState();
+  const [userObj, setuserObj] = useState({});
   const [globalProducts, setGlobalProducts] = useState([]);
 
-
-
+console.log(userObj)
   const globalContext = {
     domain,
     isLoggedIn,

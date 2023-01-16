@@ -12,6 +12,7 @@ import HorizontalFlatList from '../../componets/HorizontalFlatList';
 import {related_listings} from '../../utilities/backendRequests';
 import {Context} from '../../GlobalContext/globalContext';
 import axios from 'axios';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ProductScreen = () => {
   const route = useRoute();
@@ -59,8 +60,13 @@ const ProductScreen = () => {
   };
   return (
     <ScrollView style={styles.root}>
-      {/* title for house */}
-      <Text style={styles.title}>{item.title}</Text>
+    <View style={styles.topBar}>
+        {/* title for house */}
+        <Text style={styles.title}>{item.title}</Text>
+      <TouchableOpacity>
+        <Text> Contact Owner</Text>
+      </TouchableOpacity>
+    </View>
 
       {/* image carousel to show list of house images */}
       <ImageCarousel images={item.images} />
@@ -132,6 +138,8 @@ const ProductScreen = () => {
           },
         ]}
       />
+
+      
     </ScrollView>
   );
 };

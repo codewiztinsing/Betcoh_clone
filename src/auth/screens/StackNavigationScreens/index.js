@@ -41,8 +41,19 @@ function StackHomeScreens() {
             <HomeStack.Screen name="Search" component={SearchScreen}/>
             <HomeStack.Screen name="Product" component={ProductScreen}/>
             <HomeStack.Screen name="Order" component={OrderScreen}/>
-            <HomeStack.Screen name="_Login" component={LoginScreen}/>
-            <HomeStack.Screen name="SignUp" component={SignupScreen}/>
+            <HomeStack.Screen name="_Login" options={
+              {
+                headerShown:false
+              }
+            } component={LoginScreen}/>
+            <HomeStack.Screen
+             options={
+              {
+                headerShown:false
+              }
+            }
+            
+            name="SignUp" component={SignupScreen}/>
 
 
          </HomeStack.Navigator>
@@ -65,8 +76,21 @@ function StackAuthScreens() {
              headerBackTitle: "Back",
            }}
           >
-             <HomeStack.Screen name="_Login" component={LoginScreen}/>
-             <HomeStack.Screen name="SignUp" component={SignupScreen}/>
+            <HomeStack.Screen name="_Login" options={
+              {
+                headerShown:false
+              }
+            } component={LoginScreen}/>
+            <HomeStack.Screen name="SignUp"
+            options={{
+              headerShown:false
+            }}
+            component={SignupScreen}/>
+            <HomeStack.Screen name="Home" component={HomeScreen}/>
+            <HomeStack.Screen name="Search" component={SearchScreen}/>
+            <HomeStack.Screen name="Product" component={ProductScreen}/>
+            <HomeStack.Screen name="Order" component={OrderScreen}/>
+            
           </HomeStack.Navigator>
        );
      }

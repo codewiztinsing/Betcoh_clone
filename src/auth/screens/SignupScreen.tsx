@@ -85,7 +85,7 @@ const handleRegister = async (props,{setSubmitting}) => {
   .then(function (response) {
     
      if(response.data['message']) {
-      setMessage("Registertion successfully")
+     
        navigation.navigate("_Login")
      }
      setMessage(response.data['error'])
