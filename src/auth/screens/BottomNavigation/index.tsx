@@ -30,26 +30,29 @@ const BottomTabNavigator = () => {
         }}
       />
 
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Profile screen',
-          headerShown: false,
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-        }}
-      />
-
+        {
+          isLoggedIn &&  
+          <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarLabel: 'Profile screen',
+            headerShown: false,
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
+            ),
+          }}
+        />
+  
+        }
     <Tab.Screen
-            name="___profile"
-            component={ChatScreen}
+            name="Payment"
+            component={Payment}
             options={{
               tabBarLabel: 'Profile screen',
               headerShown: false,
               tabBarIcon: ({color, size}) => (
-                <MaterialCommunityIcons name="account" color={color} size={size} />
+                <MaterialCommunityIcons name="phone-alert" color={color} size={size} />
               ),
             }}
           />

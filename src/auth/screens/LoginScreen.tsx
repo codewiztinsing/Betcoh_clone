@@ -3,6 +3,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -87,9 +88,15 @@ const {domain,setIsLoggedIn,setToken,setuserObj} = globalContext
     .then(function (response) {
        setIsLoggedIn(true)
        setMessage("")
+       ToastAndroid.showWithGravity(
+        `${props.email} is successfully login`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
        navigation.navigate("Home")
        setuserObj({
-        email:props.email
+        email:props.email,
+        id:response.id
       })
        
       

@@ -22,17 +22,18 @@ const signupValidation = yup.object({
 
 
 const orderValidation = yup.object({
-  username:yup.string()
+  name:yup.string()
       .trim()
-      .min(3,"username must be greater than 3 characters")
-      .required("username is required"),
+      .min(3,"name must be greater than 3 characters")
+      .required("name is required"),
   address:yup.string()
       .min(8,"address is required")
       .max(20,"too long address")
       .required("address is required"),
-  password:yup.string()
-              .min(8,"password must be greater than 8 digits")
-              .required("password is required"),
+  phone:yup.string()
+      .min(10,"must be 10 digit")
+      .max(10,"too long phone number")
+      .required("phone is required")
   
 
 })

@@ -85,7 +85,13 @@ const handleRegister = async (props,{setSubmitting}) => {
   .then(function (response) {
     
      if(response.data['message']) {
-     
+
+
+      ToastAndroid.showWithGravity(
+        `${response.data['message'].email} is successfully registered`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
        navigation.navigate("_Login")
      }
      setMessage(response.data['error'])

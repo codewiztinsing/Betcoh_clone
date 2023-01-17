@@ -44,9 +44,12 @@ const Profile = () => {
   }, [userObj.email,load]);
 
   const handleProfileImage =  () => {
+   const options = {}
    
-   
-  
+    launchImageLibrary(options,response => {
+      console.log(response)
+
+    })
     
   }
 
@@ -123,12 +126,7 @@ const Profile = () => {
         <Text style={styles.menuItemText}>Support</Text>
       </View>
     </TouchableRipple>
-    {/* <TouchableRipple onPress={() => {}}>
-      <View style={styles.menuItem}>
-        <Icon name="settings" color="#FF6347" size={25}/>
-        <Text style={styles.menuItemText}>Settings</Text>
-      </View>
-    </TouchableRipple> */}
+   
   </View>
   </SafeAreaView>
 );

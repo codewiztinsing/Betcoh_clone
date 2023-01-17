@@ -64,32 +64,39 @@ function HomeScreen({navigation}) {
 
       <Filters data={
         [
+          { title: 'All' },
           { title: 'Apartama' },
           { title: 'Condos' }, 
           { title: 'Town house' }
           ]} 
           onValueChange={(id)=> {
-            let house_type = "Apartama";
+            let house_type = "";
 
             if(id ==0 ){
-    
-              setHomeType("Apartama")
-              setSearch(true)
+
+              setHomeType("")
+              setSearch(true)         
             }
             
 
             else if(id ==1 ){
-              setHomeType("Condo")
+              setHomeType("Apartama")
               setSearch(true)
+
+             
             }
             
 
             else if (id ==2 ){
+              setHomeType("Condo")
+              setSearch(true)
+              
+            }
+   
+            else if (id == 3){
               setHomeType("Townhouse")
               setSearch(true)
             }
-   
-            
             }}/>
 
 

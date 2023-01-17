@@ -29,8 +29,20 @@ export default Filters = ({ data, onValueChange }) => {
     return (
       <TouchableOpacity
         style={[
-          {  borderColor: 'black', borderWidth: 2, padding: 5,marginRight:15,marginRight:5 },
-          { backgroundColor: clicked ? 'black' : 'white' },
+          {  
+          width:80,
+          height:30,
+          borderRadius:10,
+          justifyContent:'center',
+          alignItems:"center",
+          borderColor: 'black', 
+          borderWidth: 1, 
+          // padding: 5,
+          marginRight:15,
+         
+        },
+          { backgroundColor: clicked ? 'pink' : 'white' },
+          { borderColor: clicked ? 'pink' : 'white' }
         ]}
         onPress={() => {
           callback(id);

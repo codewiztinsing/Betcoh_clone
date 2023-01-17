@@ -31,6 +31,8 @@ const ProductScreen = () => {
   const globalContext = useContext(Context);
   const {domain, setIsLoggedIn, setGlobalProducts} = globalContext;
 
+
+
   useEffect(() => {
     axios
       .post(`${domain}api/v1/listings/related_search/`, {
@@ -63,8 +65,10 @@ const ProductScreen = () => {
     <View style={styles.topBar}>
         {/* title for house */}
         <Text style={styles.title}>{item.title}</Text>
-      <TouchableOpacity>
-        <Text> Contact Owner</Text>
+      <TouchableOpacity onPress={() => {
+        navigation.navigate("Order",{"listing":item})
+      }}>
+        <Text>Order</Text>
       </TouchableOpacity>
     </View>
 

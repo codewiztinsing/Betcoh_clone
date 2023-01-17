@@ -19,6 +19,7 @@ import SearchScreen from '../../../screens/SeachScreen';
 
 // stacks we gonna use
 const HomeStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
 
 // home stack navigators
@@ -65,33 +66,29 @@ function StackHomeScreens() {
 // auth screens screens
 function StackAuthScreens() {
       return (
-          <HomeStack.Navigator
+          <AuthStack.Navigator
           
           screenOptions={{
-             headerStyle: {
-               backgroundColor: "#9AC4F8",
-             },
+            //  headerStyle: {
+            //    backgroundColor: "#9AC4F8",
+            //  },
              headerShown:false,
-             headerTintColor: "white",
-             headerBackTitle: "Back",
+            //  headerTintColor: "white",
+            //  headerBackTitle: "Back",
            }}
           >
-            <HomeStack.Screen name="_Login" options={
+            <AuthStack.Screen name="_Login" options={
               {
                 headerShown:false
               }
             } component={LoginScreen}/>
-            <HomeStack.Screen name="SignUp"
-            options={{
-              headerShown:false
-            }}
-            component={SignupScreen}/>
-            <HomeStack.Screen name="Home" component={HomeScreen}/>
-            <HomeStack.Screen name="Search" component={SearchScreen}/>
-            <HomeStack.Screen name="Product" component={ProductScreen}/>
-            <HomeStack.Screen name="Order" component={OrderScreen}/>
+            <AuthStack.Screen name="SignUp"  component = {SignupScreen}/>
+            <AuthStack.Screen name="Home"    component = {HomeScreen}/>
+            <AuthStack.Screen name="Search"  component = {SearchScreen}/>
+            <AuthStack.Screen name="Product" component = {ProductScreen}/>
+            <AuthStack.Screen name="Order"   component = {OrderScreen}/>
             
-          </HomeStack.Navigator>
+          </AuthStack.Navigator>
        );
      }
 

@@ -7,7 +7,7 @@ const Provider = ({children}) => {
 
   const [domain, setDomain] = useState("http://10.0.3.2:8000/");
   // const [domain, setDomain] = useState("http://openport.io:20639");
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState();
   const [userObj, setuserObj] = useState({});
   const [globalProducts, setGlobalProducts] = useState([]);

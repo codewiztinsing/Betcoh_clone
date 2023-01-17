@@ -13,10 +13,10 @@ function HorizontalItem({ item,data }) {
         }>
             <View style={styles.root}>
 
-                {/* <Image style = {styles.image} source={{uri:item.image}} /> */}
-                <Image style={styles.image} source={
+                <Image style = {styles.image} source={{uri:item.get_image}} />
+                {/* <Image style={styles.image} source={
                     require("/home/tinsae/Desktop/Betoch_clone/Betoch/assets/house-2.jpeg")
-                } />
+                } /> */}
 
 
                 <View style={styles.info}>

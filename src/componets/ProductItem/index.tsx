@@ -24,7 +24,7 @@ function ProductItem({item}:ProductItemProps) {
 
   const navigation = useNavigation();
  
-  {console.log(item.get_image)}
+
   return (
     <TouchableOpacity onPress={() =>  navigation.navigate("Product",{'item':item})
     }>
