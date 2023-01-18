@@ -86,7 +86,7 @@ const handleRegister = async (props,{setSubmitting}) => {
     
      if(response.data['message']) {
 
-
+      setUserObj(props.email)
       ToastAndroid.showWithGravity(
         `${response.data['message'].email} is successfully registered`,
         ToastAndroid.SHORT,

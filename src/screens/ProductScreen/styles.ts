@@ -9,7 +9,16 @@ const styles = StyleSheet.create({
       flexDirection:"row",
       justifyContent:"space-around"
     },
-
+    orderText:{},
+    orderButton:{
+      width:80,
+      height:25,
+      borderRadius:20,
+      backgroundColor:"pink",
+      justifyContent:"center",
+      alignContent:"center",
+      alignItems:"center"
+    },
     info:{
       flexDirection :"row",
       justifyContent:"space-between"
@@ -32,6 +41,7 @@ const styles = StyleSheet.create({
 
     bottomText:{
       fontSize:16,
+
       fontFamily:"sans serif",
       color:"black"
         

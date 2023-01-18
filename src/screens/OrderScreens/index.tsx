@@ -3,6 +3,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -10,7 +11,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   BetochLogo,
   BetochTitle,
@@ -49,15 +50,17 @@ import KeyboardAvoidingViewWrapper from '../../auth/components/KeyboardAvoidingV
 const OrderScreen = () => {
   // messaging related setters and getters
   const [message, setMessage] = useState();
+  const [realtor_id, setRealtorId] = useState();
   const [messageType, setmessageType] = useState();
 
   const route = useRoute();
   const {listing} = route.params;
+  
 
     //contexts
 
     const globalContext = useContext(Context);
-    const {domain,  userObj,setIsLoggedIn,setGlobalProducts} = globalContext;
+    const {domain, setOrders, userObj,setIsLoggedIn,setGlobalProducts} = globalContext;
 
 
   const initialValues = {
@@ -67,22 +70,54 @@ const OrderScreen = () => {
   };
 
   // order body
+  useEffect(() => {
+    axios
+      .get(`${domain}api/v1/realtors/${userObj.email}/`)
+      .then(response => {
+       
+        setRealtorId(response.data.id)
+      })
 
+      .catch(error => console.log(error));
+  }, [userObj.email]);
 
 
  
-  
+
+
 
   const handleOrder= (props) => {
     const body = {
       name:props.name,
       email: userObj.email,
-      realtor:userObj.id,
-      listing:listing.listing,
+      realtor:realtor_id,
+      listing:listing.id,
       place:props.address,
       phone:props.phone,
     }
-    console.log("axios request right here",body)
+
+    
+    axios
+    .post(`${domain}api/v1/orders/create/`,body)
+    .then(response => {
+      setOrders(response.data)
+      ToastAndroid.showWithGravity(
+        `${props.name} is successfully added`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+     
+    })
+
+    .catch(error => {
+      ToastAndroid.showWithGravity(
+        `Already booked listing`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+      
+      console.log(error)});
+  
   };
 
   
@@ -100,6 +135,7 @@ const OrderScreen = () => {
       <Container>
         <InnerContainer>
           <SubTitle>Well come to Order please fill the form below</SubTitle>
+
 
           <Formik
             initialValues={initialValues}

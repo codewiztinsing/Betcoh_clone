@@ -11,8 +11,9 @@ const Provider = ({children}) => {
   const [token, setToken] = useState();
   const [userObj, setuserObj] = useState({});
   const [globalProducts, setGlobalProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-console.log(userObj)
+
   const globalContext = {
     domain,
     isLoggedIn,
@@ -20,6 +21,8 @@ console.log(userObj)
     token,
     setToken,
     userObj,
+    orders,
+    setOrders,
     setuserObj,
     globalProducts,
     setGlobalProducts

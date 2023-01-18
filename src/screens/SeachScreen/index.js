@@ -28,14 +28,7 @@ const SearchScreen = () => {
         city:city
       })
       .then(response => {
-       
        response.data && setProducts(response.data)
-        
-        
-          // setProducts(globalProducts)
-        
-        
-      
       })
 
       .catch(error => console.log(error));
@@ -58,7 +51,7 @@ const SearchScreen = () => {
           <CustomPicker selectedValue = {city}
           setSelectedValue = {setCity} items = {[
                  "Hawasa", "Shager","Adama",
-                    "Dire Dawa","Dream Land","Cloud Land"]}/>
+                    "Dire Dawa","Harar","others"]}/>
 
         </View>
 

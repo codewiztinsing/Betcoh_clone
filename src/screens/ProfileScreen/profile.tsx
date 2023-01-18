@@ -27,16 +27,33 @@ const Profile = () => {
 
   //contexts
   const globalContext = useContext(Context);
-  const {domain,userObj, setIsLoggedIn,setGlobalProducts} = globalContext;
+  const {domain,userObj,orders,setuserObj, setIsLoggedIn,setGlobalProducts} = globalContext;
   const [load ,setLoad] = useState(true)
-  console.log("realtor obj ",userObj.email)
+
+
+
   useEffect(() => {
     axios
       .get(`${domain}api/v1/realtors/${userObj.email}/`)
       .then(response => {
-       console.log("response data",response.data)
        setRealtor(response.data)
+       setuserObj(userObj)
        setLoad(false)
+      
+      })
+
+      .catch(error => console.log(error));
+  }, [userObj.email,load]);
+
+
+
+
+
+  useEffect(() => {
+    axios
+      .get(`${domain}api/v1/orders/${userObj.email}/`)
+      .then(response => {
+       console.log(response.data)
       
       })
 
@@ -80,7 +97,12 @@ const Profile = () => {
   <View style={styles.userInfoSection}>
     <View style={styles.row}>
       <Icon name="map-marker-radius" color="#777777" size={20}/>
-      <Text style={{color:"#777777", marginLeft: 20}}>{realtor.location}</Text>
+      {
+        realtor.top_seller == true ?
+        <Text style={{color:"#777777", marginLeft: 20}}>Top seller</Text>
+        :<Text style={{color:"#777777", marginLeft: 20}}>seller</Text>
+      }
+     
     </View>
     <View style={styles.row}>
       <Icon name="phone" color="#777777" size={20}/>
@@ -97,11 +119,11 @@ const Profile = () => {
         borderRightColor: '#dddddd',
         borderRightWidth: 1
       }]}>
-        <Title>₹140.50</Title>
+        <Title>ETB 5000000000000</Title>
         <Caption>Wallet</Caption>
       </View>
       <View style={styles.infoBox}>
-        <Title>12</Title>
+        <Title>{orders.length}</Title>
         <Caption>Orders</Caption>
       </View>
   </View>

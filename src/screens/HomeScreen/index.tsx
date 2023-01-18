@@ -28,7 +28,8 @@ function HomeScreen({navigation}) {
   const [__products, setProducts] = useState([]);
   const [refreshing, setOnRefresh] = useState(false);
   const [search, setSearch] = useState(false);
-  const [home_type, setHomeType] = useState("Condo");
+  const [home_type, setHomeType] = useState("");
+  const [city, setCity] = useState("");
 
 
   //contexts
@@ -70,11 +71,12 @@ function HomeScreen({navigation}) {
           { title: 'Town house' }
           ]} 
           onValueChange={(id)=> {
-            let house_type = "";
+            let house_type = "All";
 
             if(id ==0 ){
 
               setHomeType("")
+              setCity("")
               setSearch(true)         
             }
             

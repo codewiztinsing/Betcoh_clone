@@ -29,7 +29,7 @@ const ProductScreen = () => {
 
   //contexts
   const globalContext = useContext(Context);
-  const {domain, setIsLoggedIn, setGlobalProducts} = globalContext;
+  const {domain, isLoggedIn,setIsLoggedIn, setGlobalProducts} = globalContext;
 
 
 
@@ -65,11 +65,16 @@ const ProductScreen = () => {
     <View style={styles.topBar}>
         {/* title for house */}
         <Text style={styles.title}>{item.title}</Text>
-      <TouchableOpacity onPress={() => {
-        navigation.navigate("Order",{"listing":item})
-      }}>
-        <Text>Order</Text>
-      </TouchableOpacity>
+        {
+          isLoggedIn &&   <TouchableOpacity
+          style = {styles.orderButton}
+         onPress={() => {
+           navigation.navigate("Order",{"listing":item})
+           
+         }}>
+           <Text style={styles.orderText}>Order Now</Text>
+         </TouchableOpacity>
+        }
     </View>
 
       {/* image carousel to show list of house images */}
