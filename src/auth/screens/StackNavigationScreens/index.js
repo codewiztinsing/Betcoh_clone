@@ -69,12 +69,7 @@ function StackAuthScreens() {
           <AuthStack.Navigator
           
           screenOptions={{
-            //  headerStyle: {
-            //    backgroundColor: "#9AC4F8",
-            //  },
-             headerShown:false,
-            //  headerTintColor: "white",
-            //  headerBackTitle: "Back",
+            
            }}
           >
             <AuthStack.Screen name="_Login" options={
@@ -83,7 +78,7 @@ function StackAuthScreens() {
               }
             } component={LoginScreen}/>
             <AuthStack.Screen name="SignUp"  component = {SignupScreen}/>
-            <AuthStack.Screen name="Home"    component = {HomeScreen}/>
+            <AuthStack.Screen  options={{headerShown:false}} name="Home"    component = {HomeScreen}/>
             <AuthStack.Screen name="Search"  component = {SearchScreen}/>
             <AuthStack.Screen name="Product" component = {ProductScreen}/>
             <AuthStack.Screen name="Order"   component = {OrderScreen}/>

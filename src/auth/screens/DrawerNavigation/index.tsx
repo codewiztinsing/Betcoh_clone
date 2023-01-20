@@ -6,6 +6,7 @@ import { StackAuthScreens, StackHomeScreens } from "../StackNavigationScreens";
 import DrawerContent from "./DrawerContent";
 import { Text, View } from "react-native";
 import SearchBar from "../../../componets/SeachBar";
+import CreateListing from "../../../screens/ListingScreen/create";
 
 const Drawer = createDrawerNavigator();
 
@@ -32,8 +33,20 @@ const DrawerNavigator = ({navigation}) => {
         />,
           }
         }
-      name="Main" component={StackHomeScreens} />
-      <Drawer.Screen name="Login" component={StackAuthScreens} />
+      name="Main"  component={StackHomeScreens} />
+      <Drawer.Screen 
+      
+      options={{
+   
+        // headerShown:false
+          }}
+      name="Login" component={StackAuthScreens} />
+      <Drawer.Screen
+      options={{
+        headerShown:false
+      }}
+      
+      name="Listing" component={CreateListing} />
     </Drawer.Navigator>
   );
 }

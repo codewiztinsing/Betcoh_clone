@@ -29,7 +29,7 @@ const Profile = () => {
   const globalContext = useContext(Context);
   const {domain,userObj,orders,setuserObj, setIsLoggedIn,setGlobalProducts} = globalContext;
   const [load ,setLoad] = useState(true)
-
+  const [pic ,setPic] = useState('')
 
 
   useEffect(() => {
@@ -64,7 +64,8 @@ const Profile = () => {
    const options = {}
    
     launchImageLibrary(options,response => {
-      console.log(response)
+      console.log(pic)
+      setPic(response.assets[0].uri)
 
     })
     

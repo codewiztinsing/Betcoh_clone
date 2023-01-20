@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     root:{
-      margin:10
+      margin:5,
+      flex:1
 
     },
     topBar:{

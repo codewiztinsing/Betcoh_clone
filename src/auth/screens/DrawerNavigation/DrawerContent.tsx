@@ -47,6 +47,18 @@ export default function DrawerContent(props) {
                         label="Login"
                         onPress={() => { props.navigation.navigate('Login') }}
                     />
+
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <_Icon
+                                name="listing"
+                                color={color}
+                                size={size}
+                            />
+                        )}
+                        label="Send Listing"
+                        onPress={() => { props.navigation.navigate('Listing') }}
+                    />
                     <DrawerItem
                         icon={({ color, size }) => (
                             <_Icon

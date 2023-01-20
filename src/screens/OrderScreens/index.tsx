@@ -52,6 +52,7 @@ const OrderScreen = () => {
   const [message, setMessage] = useState();
   const [realtor_id, setRealtorId] = useState();
   const [messageType, setmessageType] = useState();
+  const navigation = useNavigation();
 
   const route = useRoute();
   const {listing} = route.params;
@@ -116,7 +117,7 @@ const OrderScreen = () => {
         ToastAndroid.CENTER,
       );
       
-      console.log(error)});
+     });
   
   };
 
@@ -127,7 +128,7 @@ const OrderScreen = () => {
     setMessage(messageType);
   };
 
-  const navigation = useNavigation();
+ 
 
 
   return (

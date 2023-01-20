@@ -12,7 +12,7 @@ import HorizontalFlatList from '../../componets/HorizontalFlatList';
 import {related_listings} from '../../utilities/backendRequests';
 import {Context} from '../../GlobalContext/globalContext';
 import axios from 'axios';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ProductScreen = () => {
   const route = useRoute();
@@ -29,26 +29,21 @@ const ProductScreen = () => {
 
   //contexts
   const globalContext = useContext(Context);
-  const {domain, isLoggedIn,setIsLoggedIn, setGlobalProducts} = globalContext;
-
-
+  const {domain, isLoggedIn, setIsLoggedIn, setGlobalProducts} = globalContext;
 
   useEffect(() => {
     axios
       .post(`${domain}api/v1/listings/related_search/`, {
         home_type: item.home_type,
         city: item.city,
-        price:item.price
-
+        price: item.price,
       })
       .then(response => {
-        setRelatedListings(response.data)
+        setRelatedListings(response.data);
       })
 
       .catch(error => console.log(error));
   }, []);
-
- 
 
   const showHandler = () => {
     if (showMore) {
@@ -62,20 +57,27 @@ const ProductScreen = () => {
   };
   return (
     <ScrollView style={styles.root}>
-    <View style={styles.topBar}>
+      <View style={styles.topBar}>
         {/* title for house */}
         <Text style={styles.title}>{item.title}</Text>
-        {
-          isLoggedIn &&   <TouchableOpacity
-          style = {styles.orderButton}
-         onPress={() => {
-           navigation.navigate("Order",{"listing":item})
-           
-         }}>
-           <Text style={styles.orderText}>Order Now</Text>
-         </TouchableOpacity>
-        }
-    </View>
+        {isLoggedIn == true ? (
+          <TouchableOpacity
+            style={styles.orderButton}
+            onPress={() => {
+              navigation.navigate('Order', {listing: item});
+            }}>
+            <Text style={styles.orderText}>Order Now</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.orderButton}
+            onPress={() => {
+              navigation.navigate('_Login', {listing: item});
+            }}>
+            <Text style={styles.orderText}>Login to order</Text>
+          </TouchableOpacity>
+        )}
+      </View>
 
       {/* image carousel to show list of house images */}
       <ImageCarousel images={item.images} />
@@ -110,45 +112,41 @@ const ProductScreen = () => {
         </Pressable>
       </View>
       {/* <Text>Show related house </Text> */}
-      <HorizontalFlatList
-        products={relatedListings}
-        SECTIONS={[
-          {
-            title: 'Related house',
-            horizontal: true,
-            data: [
-              {
-                key: '1',
-                text: 'Item text 1',
-                uri: 'https://picsum.photos/id/1/200',
-              },
-              {
-                key: '2',
-                text: 'Item text 2',
-                uri: 'https://picsum.photos/id/10/200',
-              },
 
-              {
-                key: '3',
-                text: 'Item text 3',
-                uri: 'https://picsum.photos/id/1002/200',
-              },
-              {
-                key: '4',
-                text: 'Item text 4',
-                uri: 'https://picsum.photos/id/1006/200',
-              },
-              {
-                key: '5',
-                text: 'Item text 5',
-                uri: 'https://picsum.photos/id/1008/200',
-              },
-            ],
-          },
-        ]}
-      />
+      <View>
+        <HorizontalFlatList
+          products={relatedListings}
+          SECTIONS={[
+            {
+              title: 'Related house',
+              horizontal: true,
+              data: [
+                {
+                  key: '1',
+                  text: 'Item text 1',
+                },
+                {
+                  key: '2',
+                  text: 'Item text 2',
+                },
 
-      
+                {
+                  key: '3',
+                  text: 'Item text 3',
+                },
+                {
+                  key: '4',
+                  text: 'Item text 4',
+                },
+                {
+                  key: '5',
+                  text: 'Item text 5',
+                },
+              ],
+            },
+          ]}
+        />
+      </View>
     </ScrollView>
   );
 };

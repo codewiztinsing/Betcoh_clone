@@ -38,6 +38,35 @@ const orderValidation = yup.object({
 
 })
 
+const listingValidation = yup.object({
+    title:yup.string()
+        .trim()
+        .min(5,"title must describe house in detail")
+        .required("title is required"),
+
+    city:yup.string()
+        .trim()
+        .min(3,"cities in the world")
+        .required("city is required"),
+
+    state:yup.string()
+        .trim()
+        .min(3,"Countery in the world")
+        .required("state is required"),
+    price:yup.number()
+        .max(6,"please check it is less than 6 digits")
+        .required("price is required"),
+    bedrooms:yup.number()
+        .min(1,"please enter number of bed rooms")
+        .max(2,"too many bedrooms")
+        .required("please enter number of bed rooms"),
+    bathrooms:yup.number()
+        .min(1,"please enter number of bath rooms")
+        .max(2,"too many bath rooms")
+        .required("please enter number of bath rooms")
+    
+  
+  })
 
 
 const loginValidation = yup.object({
@@ -49,4 +78,4 @@ const loginValidation = yup.object({
 
 
 
-export { signupValidation,loginValidation,orderValidation};
+export { signupValidation,listingValidation,loginValidation,orderValidation};

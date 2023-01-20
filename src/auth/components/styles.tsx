@@ -34,7 +34,8 @@ export const Container = styled.View`
   flex: 1;
   padding: 10px;
   background-color: ${primary};
-  height:${windowHeight};
+  // height:${windowHeight};
+  height:100%;
   
 `;
 export const InnerContainer = styled.View`
