@@ -50,8 +50,8 @@ export default function DrawerContent(props) {
 
                     <DrawerItem
                         icon={({ color, size }) => (
-                            <_Icon
-                                name="listing"
+                            <Icon
+                                name="badminton"
                                 color={color}
                                 size={size}
                             />
@@ -79,7 +79,7 @@ export default function DrawerContent(props) {
                             />
                         )}
                         label="Settings"
-                        onPress={() => { props.navigation.navigate('SettingsScreen') }}
+                        onPress={() => { props.navigation.navigate('Setting') }}
                     />
                     <DrawerItem
                         icon={({ color, size }) => (

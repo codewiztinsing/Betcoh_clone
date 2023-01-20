@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import {
   Image,
   StyleSheet,
@@ -30,12 +30,16 @@ function HomeScreen({navigation}) {
   const [search, setSearch] = useState(false);
   const [home_type, setHomeType] = useState("");
   const [city, setCity] = useState("");
+  const [searchPhrase,setSearchPhrase] = useState("")
+  const[clicked,setClicked] = useState(false)
 
 
   //contexts
 
   const globalContext = useContext(Context);
   const {domain, setIsLoggedIn,setGlobalProducts} = globalContext;
+
+
 
   useEffect(() => {
     axios
@@ -55,14 +59,23 @@ function HomeScreen({navigation}) {
       .catch(error => console.log(error));
   }, [search,refreshing]);
 
+  useLayoutEffect(() => {
+    navigation.setOptions({headerShown: false});
+  }, [navigation]);
 
-  const [searchPhrase,setSearchPhrase] = useState("")
-  const[clicked,setClicked] = useState(false)
+  
+ 
 
   return (
     <View style={styles.pages}>
 
-
+     <SearchBar
+        clicked={clicked}
+        searchPhrase={searchPhrase}
+        setClicked={setClicked}
+        setSearchPhrase={setSearchPhrase}
+        navigation={navigation}
+        />
       <Filters data={
         [
           { title: 'All' },

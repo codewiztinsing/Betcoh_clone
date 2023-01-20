@@ -15,6 +15,8 @@ import { Searchbar } from 'react-native-paper';
 import SearchBar from '../../../componets/SeachBar';
 import OrderScreen from '../../../screens/OrderScreens';
 import SearchScreen from '../../../screens/SeachScreen';
+import Setting from '../../../screens/SettingScreen';
+import Profile from '../../../screens/ProfileScreen/profile';
 
 
 // stacks we gonna use
@@ -30,15 +32,12 @@ function StackHomeScreens() {
      return (
          <HomeStack.Navigator 
          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#9AC4F8",
-            },
-            headerShown:false,
-            headerTintColor: "white",
-            headerBackTitle: "Back",
-          }}
+          headerShown: false
+        }}
          >
             <HomeStack.Screen name="Home" component={HomeScreen}/>
+            <HomeStack.Screen name="Setting" component={Setting}/>
+            <HomeStack.Screen name="Profile" component={Profile}/>
             <HomeStack.Screen name="Search" component={SearchScreen}/>
             <HomeStack.Screen name="Product" component={ProductScreen}/>
             <HomeStack.Screen name="Order" component={OrderScreen}/>
@@ -66,24 +65,19 @@ function StackHomeScreens() {
 // auth screens screens
 function StackAuthScreens() {
       return (
-          <AuthStack.Navigator
-          
+          <HomeStack.Navigator
           screenOptions={{
-            
-           }}
+            headerShown: false
+          }}
           >
-            <AuthStack.Screen name="_Login" options={
-              {
-                headerShown:false
-              }
-            } component={LoginScreen}/>
-            <AuthStack.Screen name="SignUp"  component = {SignupScreen}/>
-            <AuthStack.Screen  options={{headerShown:false}} name="Home"    component = {HomeScreen}/>
-            <AuthStack.Screen name="Search"  component = {SearchScreen}/>
-            <AuthStack.Screen name="Product" component = {ProductScreen}/>
-            <AuthStack.Screen name="Order"   component = {OrderScreen}/>
+            <HomeStack.Screen name="_Login"  component={LoginScreen}/>
+            <HomeStack.Screen name="SignUp"  component = {SignupScreen}/>
+            <HomeStack.Screen  name="Home"    component = {HomeScreen}/>
+            <HomeStack.Screen name="Search"  component = {SearchScreen}/>
+            <HomeStack.Screen name="Product" component = {ProductScreen}/>
+            <HomeStack.Screen name="Order"   component = {OrderScreen}/>
             
-          </AuthStack.Navigator>
+          </HomeStack.Navigator>
        );
      }
 

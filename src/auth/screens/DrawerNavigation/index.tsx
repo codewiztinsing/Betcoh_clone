@@ -24,13 +24,7 @@ const DrawerNavigator = ({navigation}) => {
       <Drawer.Screen  
       options={{
    
-        header:({navigation}) => <SearchBar
-        clicked={clicked}
-        searchPhrase={searchPhrase}
-        setClicked={setClicked}
-        setSearchPhrase={setSearchPhrase}
-        navigation={navigation}
-        />,
+        header:({navigation}) => {<></>}
           }
         }
       name="Main"  component={StackHomeScreens} />

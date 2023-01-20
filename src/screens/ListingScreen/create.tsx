@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Platform,
   StatusBar,
   StyleSheet,
   Text,
@@ -68,7 +69,7 @@ const CreateListing = () => {
   const [house_type, setHouseType] = useState('Condo');
 
   // images related
-  const [filename1, setFileName1] = useState('');
+  const [fileData, setFileData] = useState({});
   const [filename2, setFileName2] = useState('');
   const [filename3, setFileName3] = useState('');
   const [filename4, setFileName4] = useState('');
@@ -130,7 +131,26 @@ const CreateListing = () => {
     )
     
   }
- 
+  const createFormData = (photo, body) => {
+    const data = new FormData();
+  
+    data.append("photo", {
+      name: photo.fileName,
+      type: photo.type,
+      uri:Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+    });
+  
+    Object.keys(body).forEach(key => {
+      data.append(key, body[key]);
+    });
+  
+    return data;
+  };
+
+
+
+
+
   const chooseFile =( type,filename,setFileName) => {
     let options = {
       mediaType: type,
@@ -139,7 +159,7 @@ const CreateListing = () => {
       quality: 1,
     };
     launchImageLibrary(options, response => {
-      console.log(response)
+      console.log(response.assets[0])
       if (response.didCancel) {
         alert('User cancelled camera picker');
         return;
@@ -153,18 +173,16 @@ const CreateListing = () => {
         alert(response.errorMessage);
         return;
       }
-      console.log('base64 -> ', response.base64);
-      console.log('uri -> ', response.assets[0].uri);
-      console.log('width -> ', response.width);
-      console.log('height -> ', response.height);
-      console.log('fileSize -> ', response.fileSize);
-      console.log('type -> ', response.type);
-      console.log('fileName -> ', response.fileName);
-      setFileName(response.assets[0].fileName);
+      // console.log('fileSize -> ', response.fileSize);
+      // console.log('type -> ', response.type);
+      // console.log('fileName -> ', response.fileName);
+      // setFileData(response);
     });
   };
 
-  const handleOrder = props => {
+
+  const handleUploadPhoto = (props) => {
+
     const body = {
       realtor: realtor_id,
       title: props.title,
@@ -176,37 +194,60 @@ const CreateListing = () => {
       bed_rooms: Number.parseInt(props.bedrooms),
       bath_rooms: Number.parseInt(props.bathrooms),
       home_type:house_type,
-      sale_type:sale_type,
-      image:filename1,
-      image_1:filename2,
-      image_2:filename3,
-      image_3:filename4,
-      image_4:filename5,
-      image_5:filename6
-
+      sale_type:sale_type
 
     };
-
-    axios
-      .post(`${domain}api/v1/listings/create/`, body)
-      console.log(body)
+    fetch("http://localhost:3000/api/upload", {
+      method: "POST",
+      body: createFormData(fileData,body)
+    })
+      .then(response => response.json())
       .then(response => {
-        console.log(response.data)
-        ToastAndroid.showWithGravity(
-          `${props.title} is successfully added`,
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER,
-        );
+        console.log("upload succes", response);
+        alert("Upload success!");
+        setFileData({})
       })
-
       .catch(error => {
-        ToastAndroid.showWithGravity(
-          `Already booked listing`,
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER,
-        );
+        console.log("upload error", error);
+        alert("Upload failed!");
       });
   };
+
+  // const handleOrder = props => {
+  //   const body = {
+  //     realtor: realtor_id,
+  //     title: props.title,
+  //     slug:`${house_type}-${props.city}`,
+  //     city: props.city,
+  //     address:props.city,
+  //     price:props.price,
+  //     state: props.state,
+  //     bed_rooms: Number.parseInt(props.bedrooms),
+  //     bath_rooms: Number.parseInt(props.bathrooms),
+  //     home_type:house_type,
+  //     sale_type:sale_type
+
+  //   };
+
+  //   axios
+  //     .post(`${domain}api/v1/listings/`, createFormData(filename1,body))
+  //     .then(response => {
+  //       console.log(response.data)
+  //       ToastAndroid.showWithGravity(
+  //         `${props.title} is successfully added`,
+  //         ToastAndroid.SHORT,
+  //         ToastAndroid.CENTER,
+  //       );
+  //     })
+
+  //     .catch(error => {
+  //       ToastAndroid.showWithGravity(
+  //         `Already booked listing`,
+  //         ToastAndroid.SHORT,
+  //         ToastAndroid.CENTER,
+  //       );
+  //     });
+  // };
 
   const handleMessage = (message, type = 'FAILED') => {
     setMessage(message);
@@ -225,7 +266,7 @@ const CreateListing = () => {
               initialValues={initialValues}
               validationSchema={listingValidation}
               onSubmit={(values, formikActions) =>
-                handleOrder(values, formikActions)
+                handleUploadPhoto(values, formikActions)
               }>
               {({
                 errors,
@@ -321,12 +362,12 @@ const CreateListing = () => {
                     error={touched.bathrooms && errors.bathrooms}
                     value={values.bathrooms}
                   />
-                  <ImagePicker label={"Image"} filename={filename1} setFileName={setFileName1}/>
-                  <ImagePicker label={"Image"} filename={filename2} setFileName={setFileName2}/>
-                  <ImagePicker label={"Image"} filename={filename3} setFileName={setFileName3}/>
-                  <ImagePicker label={"Image"} filename={filename4} setFileName={setFileName4}/>
-                  <ImagePicker label={"Image"} filename={filename5} setFileName={setFileName5}/>
-                  <ImagePicker label={"Image"} filename={filename6} setFileName={setFileName6}/>
+                  <ImagePicker label={"Image"} filename={fileData} setFileName={setFileData}/>
+                  <ImagePicker label={"Image 1"} filename={filename2} setFileName={setFileName2}/>
+                  <ImagePicker label={"Image 2"} filename={filename3} setFileName={setFileName3}/>
+                  <ImagePicker label={"Image 3"} filename={filename4} setFileName={setFileName4}/>
+                  <ImagePicker label={"Image 4"} filename={filename5} setFileName={setFileName5}/>
+                  <ImagePicker label={"Image 5"} filename={filename6} setFileName={setFileName6}/>
                   
 
 
